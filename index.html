@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div class="wrapper">
+        <div class="parent">
+            <div class="left">
+                <div id="pst" class="clockContainer">
+                    <div class="hour" id="psthour"></div>
+                    <div class="minute" id="pstminute"></div>
+                    <div class="second" id="pstsecond"></div>
+                </div>
+                <div style="display: flex;">
+                    PST: &nbsp;<div id="psttime"></div>
+                </div>
+            </div>
+            <div class="right">
+                <div id="est" class="clockContainer">
+                    <div class="hour" id="esthour"></div>
+                    <div class="minute" id="estminute"></div>
+                    <div class="second" id="estsecond"></div>
+                </div>
+                <div style="display: flex;">
+                    EST: &nbsp;<div id="esttime"></div>
+                </div>
+            </div>
+        </div>
+        <div class="parent">
+            <div class="center">
+                <div id="ist" class="clockContainer">
+                    <div class="hour" id="isthour"></div>
+                    <div class="minute" id="istminute"></div>
+                    <div class="second" id="istsecond"></div>
+                </div>
+                <div style="display: flex;">
+                    IST: &nbsp;<div id="isttime"></div>
+                </div>
+            </div>
+        </div>
+        <div class="parent">
+            <div class="left">
+                <div id="central" class="clockContainer">
+                    <div class="hour" id="csthour"></div>
+                    <div class="minute" id="cstminute"></div>
+                    <div class="second" id="cstsecond"></div>
+                </div>
+                <div style="display: flex;">
+                    CST: &nbsp;<div id="csttime"></div>
+                </div>
+            </div>
+            <div class="right">
+                <div id="utc" class="clockContainer">
+                    <div class="hour" id="utchour"></div>
+                    <div class="minute" id="utcminute"></div>
+                    <div class="second" id="utcsecond"></div>
+                </div>
+                <div style="display: flex;">
+                    UTC: &nbsp;<div id="utctime"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<style>
+    .clockContainer {
+        position: relative;
+        margin: auto;
+        height: 200px;
+        /*to make the height and width responsive*/
+        width: 200px;
+        background: url(https://media.geeksforgeeks.org/wp-content/uploads/20210302161254/imgonlinecomuaCompressToSizeOmNATjUMFKw-300x300.jpg) no-repeat;
+        /*setting our background image*/
+        background-size: 100%;
+    }
+
+    .hour,
+    .minute,
+    .second {
+        position: absolute;
+        background: black;
+        border-radius: 10px;
+        transform-origin: bottom;
+    }
+
+    .hour {
+        width: 1.8%;
+        height: 25%;
+        top: 25%;
+        left: 48.85%;
+        opacity: 0.8;
+    }
+
+    .minute {
+        width: 1.6%;
+        height: 30%;
+        top: 19%;
+        left: 48.9%;
+        opacity: 0.8;
+    }
+
+    .second {
+        width: 1%;
+        height: 40%;
+        top: 9%;
+        left: 49.25%;
+        opacity: 0.8;
+    }
+
+    .parent {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .left {
+        text-align: center;
+        height: 280px;
+        margin: 20px;
+    }
+
+    .right {
+        text-align: center;
+        height: 280px;
+        margin: 20px;
+    }
+
+    .center {
+        text-align: center;
+        height: 280px;
+        margin: 20px;
+    }
+
+    .wrapper {
+        margin: 20px;
+        border: 3px solid black;
+    }
+
+    * {
+        font-size: 40px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-weight: bold;
+    }
+</style>
+<script>
+    setInterval(() => {
+        var ISTOffset = 330;
+        var PSTOffset = -420;
+        var ESTOffset = -240;
+        var CSTOffset = -300;
+        var UTCOffset = 0;
+
+        var currentTime = new Date();
+        var currentOffset = currentTime.getTimezoneOffset();
+
+        var days = { 1: 'Mon', 2: 'Tue', 3: 'Wed', 4: 'Thu', 5: 'Fri', 6: 'Sat', 7: 'Sun' }
+
+        var ISTTime = new Date(currentTime.getTime() + (ISTOffset + currentOffset) * 60000);
+        ist_hr_rotation = 30 * (ISTTime.getHours()) + (ISTTime.getMinutes()) / 2;
+        ist_min_rotation = 6 * ISTTime.getMinutes();
+        ist_sec_rotation = 6 * ISTTime.getSeconds();
+
+        var PSTTime = new Date(currentTime.getTime() + (PSTOffset + currentOffset) * 60000);
+        pst_hr_rotation = 30 * (PSTTime.getHours()) + (PSTTime.getMinutes()) / 2;
+        pst_min_rotation = 6 * PSTTime.getMinutes();
+        pst_sec_rotation = 6 * PSTTime.getSeconds();
+
+        var ESTTime = new Date(currentTime.getTime() + (ESTOffset + currentOffset) * 60000);
+        est_hr_rotation = 30 * (ESTTime.getHours()) + (ESTTime.getMinutes()) / 2;
+        est_min_rotation = 6 * ESTTime.getMinutes();
+        est_sec_rotation = 6 * ESTTime.getSeconds();
+
+        var CSTTime = new Date(currentTime.getTime() + (CSTOffset + currentOffset) * 60000);
+        cst_hr_rotation = 30 * (CSTTime.getHours()) + (CSTTime.getMinutes()) / 2;
+        cst_min_rotation = 6 * CSTTime.getMinutes();
+        cst_sec_rotation = 6 * CSTTime.getSeconds();
+
+        var UTCTime = new Date(currentTime.getTime() + (UTCOffset + currentOffset) * 60000);
+        utc_hr_rotation = 30 * (UTCTime.getHours()) + (UTCTime.getMinutes()) / 2;
+        utc_min_rotation = 6 * UTCTime.getMinutes();
+        utc_sec_rotation = 6 * UTCTime.getSeconds();
+
+        isthour.style.transform = `rotate(${ist_hr_rotation}deg)`;
+        istminute.style.transform = `rotate(${ist_min_rotation}deg)`;
+        istsecond.style.transform = `rotate(${ist_sec_rotation}deg)`;
+
+        psthour.style.transform = `rotate(${pst_hr_rotation}deg)`;
+        pstminute.style.transform = `rotate(${pst_min_rotation}deg)`;
+        pstsecond.style.transform = `rotate(${pst_sec_rotation}deg)`;
+
+        csthour.style.transform = `rotate(${cst_hr_rotation}deg)`;
+        cstminute.style.transform = `rotate(${cst_min_rotation}deg)`;
+        cstsecond.style.transform = `rotate(${cst_sec_rotation}deg)`;
+
+        esthour.style.transform = `rotate(${est_hr_rotation}deg)`;
+        estminute.style.transform = `rotate(${est_min_rotation}deg)`;
+        estsecond.style.transform = `rotate(${est_sec_rotation}deg)`;
+
+        utchour.style.transform = `rotate(${utc_hr_rotation}deg)`;
+        utcminute.style.transform = `rotate(${utc_min_rotation}deg)`;
+        utcsecond.style.transform = `rotate(${utc_sec_rotation}deg)`;
+
+        document.getElementById("psttime").innerHTML = days[PSTTime.getDay()] + '  ' + ('0' + PSTTime.getHours()).substr(-2) + ":" + ('0' + PSTTime.getMinutes()).substr(-2) + ":" + ('0' + PSTTime.getSeconds()).substr(-2)
+        document.getElementById("esttime").innerHTML = days[ESTTime.getDay()] + '  ' + ('0' + ESTTime.getHours()).substr(-2) + ":" + ('0' + ESTTime.getMinutes()).substr(-2) + ":" + ('0' + ESTTime.getSeconds()).substr(-2)
+        document.getElementById("isttime").innerHTML = days[ISTTime.getDay()] + '  ' + ('0' + ISTTime.getHours()).substr(-2) + ":" + ('0' + ISTTime.getMinutes()).substr(-2) + ":" + ('0' + ISTTime.getSeconds()).substr(-2)
+        document.getElementById("csttime").innerHTML = days[CSTTime.getDay()] + '  ' + ('0' + CSTTime.getHours()).substr(-2) + ":" + ('0' + CSTTime.getMinutes()).substr(-2) + ":" + ('0' + CSTTime.getSeconds()).substr(-2)
+        document.getElementById("utctime").innerHTML = days[UTCTime.getDay()] + '  ' + ('0' + UTCTime.getHours()).substr(-2) + ":" + ('0' + UTCTime.getMinutes()).substr(-2) + ":" + ('0' + UTCTime.getSeconds()).substr(-2)
+    }, 1000);
+</script>
